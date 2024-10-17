@@ -198,6 +198,7 @@ fi
 
 # Port jmx_prometheus_javaagent
 JMX_EXPORTER_PORT=$1
+# Jmeter path
 JMETER_PATH="/opt/jmeter/bin"
 shift
 

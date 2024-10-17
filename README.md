@@ -118,7 +118,7 @@ G1 Old Generation - старшее поколение: G1 Old Gen.
 1. Установить и настроить [Prometheus](https://prometheus.io/docs/prometheus/latest/getting_started/)  
    Установить на Linux можно с помощью bash-скрипта -->
    [install-prometheus.sh](https://github.com/promokk/bash-scripts/blob/main/install-scripts/install-prometheus.sh)
-2. Установить и настроить [Node-exporter]  
+2. Установить и настроить [Node-exporter](https://github.com/prometheus/node_exporter)  
    Установить на Linux можно с помощью bash-скрипта --> 
    [install-node-exporter.sh](https://github.com/promokk/bash-scripts/blob/main/install-scripts/install-node-exporter.sh)
 
@@ -183,6 +183,7 @@ rules:
 # jmeter
 # Port jmx_prometheus_javaagent
 JMX_EXPORTER_PORT=$1
+# Jmeter path
 JMETER_PATH="/opt/jmeter/bin"
 shift
 
