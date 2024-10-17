@@ -1,6 +1,6 @@
 # Jmeter-jmx-dashboard
-Дашборд Grafana для мониторинга JVM-метрик процесса Jmeter.  
-Позволяет отслеживать утилизацию русурсов Jmeter во время теста.
+Дашборд Grafana для мониторинга JMX-метрик процесса Jmeter.  
+Позволяет отслеживать утилизацию ресурсов Jmeter во время теста.  
 Для работы дашборда используется Prometheus, [Jmx-exporter](https://github.com/prometheus/jmx_exporter)
 и [Node-exporter](https://github.com/prometheus/node_exporter).
 
@@ -125,8 +125,8 @@ G1 Old Generation - старшее поколение: G1 Old Gen.
 ---
 ### Jmx-exporter <a id="jmxExporter"></a>
 Jmx-exporter запускается как java-agent при запуске Jmeter. Один java-agent собирает метрики с одного процесса Jmeter.
-При запуске распределенного теста на master-сервере запускается два процесса Jmeter (jmeter и jmeter-server). Поэтому в prometheus 
-для каждого сервера нужно указать минимум по два порта для jmx-exporter.
+При запуске распределенного теста на master-сервере запускается два процесса Jmeter (jmeter и jmeter-server).
+Поэтому в prometheus.yml для каждого сервера нужно указать минимум по два порта для jmx-exporter.
 1. Создать файл targetJMX.json в директории /prometheus (Например: /etc/prometheus/targetJMX.json)  
    Вместо {host} и {port} необходимо указать сервера и порты выделенные под jmx-exporter.
 
@@ -174,7 +174,7 @@ rules:
 ---
 ### Jmeter <a id="jmeter"></a>
 Чтобы запустить jmx-exporter вместе с Jmeter нужно отредактировать файл jmeter и jmeter-server.  
-Файлы доступны в репозитории --> jmeter-file/
+Файлы доступны в репозитории --> [jmeter-file/](https://github.com/promokk/jmeter-jmx-dashboard/tree/main/jmeter-file)
 * /opt/jmeter/bin/jmeter
   * JMETER_PATH - путь до директории /jmeter/bin
   * jmx_prometheus_javaagent-*.jar - укажите свою версию jmx-exporter (Например: jmx_prometheus_javaagent-0.20.0.jar)
@@ -193,7 +193,7 @@ shift
 * /opt/jmeter/bin/jmeter-server
 
 ~~~shell
-# config.yaml
+# jmeter-server
 # Port jmx_prometheus_javaagent
 JMX_EXPORTER_PORT=$1
 shift
@@ -205,7 +205,7 @@ ${DIRNAME}/jmeter02 ${JMX_EXPORTER_PORT} ${RMI_HOST_DEF} -Dserver_port=${SERVER_
 ### Запуск Jmeter в Non-GUI mode <a id="runJmeter"></a>
 Документация: [распределенноый запуск](https://jmeter.apache.org/usermanual/remote-test.html), 
 [параметры командной строки Jmeter](https://jmeter.apache.org/usermanual/get-started.html#non_gui).  
-При запуске необходимо указать JMX_EXPORTER_PORT - порт jxm-exporter, который ранее был указан в файле targetJMX.json
+При запуске необходимо указать **JMX_EXPORTER_PORT** - порт jxm-exporter, который ранее был указан в файле targetJMX.json
 
 ~~~shell
 # Пример для запуска с одного сервера
