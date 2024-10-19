@@ -3302,7 +3302,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": false,
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -3341,7 +3341,7 @@
           "query": "label_values(jmx_exporter_build_info,job)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -3363,7 +3363,7 @@
           "query": "label_values(jmx_exporter_build_info{job=\"$job\"},instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "/(.*):.*/",
         "skipUrlSync": false,
         "sort": 1,
@@ -3385,7 +3385,7 @@
           "query": "label_values(jmx_exporter_build_info{job=\"$job\"},instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "/$server:(.*)/",
         "skipUrlSync": false,
         "sort": 1,
@@ -3407,7 +3407,7 @@
           "query": "query_result(\"$server:$port\")",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
-        "refresh": 1,
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -3443,6 +3443,6 @@
   "timezone": "",
   "title": "jmeter-jmx-dashboard",
   "uid": "ac728010-fb34-4fd3-ae41-3d57a1f94ec9",
-  "version": 149,
+  "version": 151,
   "weekStart": ""
 }
