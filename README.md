@@ -4,7 +4,7 @@
 Для работы дашборда используется Prometheus, [Jmx-exporter](https://github.com/prometheus/jmx_exporter)
 и [Node-exporter](https://github.com/prometheus/node_exporter).
 
-Дашборд загружен в [Grafana Labs](!!!).
+Дашборд загружен в [Grafana Labs](https://grafana.com/grafana/dashboards/22106-jmeter-jmx-dashboard/).
 
 ---
 # Оглавление
@@ -23,19 +23,19 @@
 
 ---
 ## Описание дашборда <a id="dashboardDescription"></a>
-Чтобы писать производительные скрипты, нужно понимать сколько ресурсов потребляют разные вариации скриптов Jmeter.  
+Чтобы писать производительные скрипты, нужно понимать, сколько ресурсов потребляют разные вариации скриптов Jmeter.  
 Данный дашборд поволяет отслеживать утилизацию Jmeter во время теста.  
 Node-exporter работает на сервере постоянно. Он необходим для панелей CPU.  
-Jmx-exporter запускается как java-agent при запуске Jmeter, следовательно завершает свою работу по окончанию теста.
+Jmx-exporter запускается как java-agent при запуске Jmeter, следовательно, завершает свою работу по окончанию теста.
 
 ---
 ###  Summary <a id="summary"></a>
-Базовая информация об утилизации процесса Jmeter в течении теста, так же содержит еще несколько полезных панелей.
+Базовая информация об утилизации процесса Jmeter в течение теста также содержит еще несколько полезных панелей.
 * Фактическая утилизация CPU % / Memory %
 * Фактическая утилизация Heap % / NonHeap %
 * Количество классов, которые в данный момент загружены в приложении
 * Версия JVM
-* Start Time - дата кликабельна. Отображает период от начала записи до выбранной точки.
+* Start Time - начало записи . Дата кликабельна. Отображает период от начала записи до выбранной точки.
 * Uptime - время от начала записи до выбранной точки.
 
 ![Summary - гифка](https://raw.githubusercontent.com/promokk/jmeter-jmx-dashboard/main/data/Summary.gif)
@@ -102,7 +102,7 @@ G1 Old Generation - старшее поколение: G1 Old Gen.
 ### Native Memory <a id="nativeMemory"></a>
 Содержит несколько пулов памяти.
 * Metaspace - пул памяти для хранения метаданных классов.
-* Direct Buffer Pool - пул памяти из которого можно выполнить прямое чтение. Используется для операций ввода-вывода.
+* Direct Buffer Pool - пул памяти, из которого можно выполнить прямое чтение. Используется для операций ввода-вывода.
 * Mapped Buffer Pool - пул памяти для FileChannel-инстанций.
 * CodeHeap Non-Nmethods - пул памяти, содержащий буферы компилятора и интерпретатор байт-кода.
 * CodeHeap Non-Profiled Nmethods - пул памяти содержит полностью оптимизированные методы, которые живут долго.
@@ -210,11 +210,11 @@ ${DIRNAME}/jmeter02 ${JMX_EXPORTER_PORT} ${RMI_HOST_DEF} -Dserver_port=${SERVER_
 ~~~shell
 # Пример для запуска с одного сервера
 # 1 - На выбранном сервере запускаем jmeter
-nohup /opt/jmeter/bin/jmeter {JMX_EXPORTER_PORT} -n -t scriptExample.jmx > /dev/null 2>&1&
+nohup /opt/jmeter/bin/jmeter {JMX_EXPORTER_PORT01} -n -t scriptExample.jmx > /dev/null 2>&1&
 
 # Пример для распределенного запуска
 # 1 - На всех выбранных серверах запускаем jmeter-server
-nohup /opt/jmeter/bin/jmeter-server {JMX_EXPORTER_PORT}
+nohup /opt/jmeter/bin/jmeter-server {JMX_EXPORTER_PORT01} > /dev/null 2>&1&
 # 2 - На master-сервере запускаем jmeter
-nohup /opt/jmeter/bin/jmeter -n -t scriptExample.jmx -X -R server01,server02 -Dmode=StrippedAsynch > /dev/null 2>&1&
+nohup /opt/jmeter/bin/jmeter {JMX_EXPORTER_PORT02} -n -t scriptExample.jmx -X -R server01,server02 -Dmode=StrippedAsynch > /dev/null 2>&1&
 ~~~
