@@ -192,7 +192,7 @@ rules:
 Файлы доступны в репозитории --> [jmeter-file/](https://github.com/promokk/jmeter-jmx-dashboard/tree/main/jmeter-file)
 * /opt/jmeter/bin/jmeter
   * JMETER_PATH - путь до директории /jmeter/bin
-  * jmx_prometheus_javaagent-*.jar - укажите свою версию jmx-exporter (Например: jmx_prometheus_javaagent-0.20.0.jar)
+  * jmx_prometheus_javaagent-*.jar - версия jmx-exporter (Например: jmx_prometheus_javaagent-0.20.0.jar)
 
 ~~~shell
 # jmeter
