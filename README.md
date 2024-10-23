@@ -31,8 +31,8 @@ Jmx-exporter запускается как java-agent при запуске Jmet
 ---
 ###  Summary <a id="summary"></a>
 Базовая информация об утилизации процесса Jmeter в течение теста также содержит еще несколько полезных панелей.
-* Фактическая утилизация CPU % / Memory %
-* Фактическая утилизация Heap % / NonHeap %
+* Утилизация CPU % / Memory %
+* Утилизация Heap % / NonHeap %
 * Количество классов, которые в данный момент загружены в приложении
 * Версия JVM
 * Start Time - начало записи . Дата кликабельна. Отображает период от начала записи до выбранной точки.
@@ -118,6 +118,21 @@ G1 Old Generation - старшее поколение: G1 Old Gen.
 1. Установить и настроить [Prometheus](https://prometheus.io/docs/prometheus/latest/getting_started/)  
    Установить на Linux можно с помощью bash-скрипта -->
    [install-prometheus.sh](https://github.com/promokk/bash-scripts/blob/main/install-scripts/install-prometheus.sh)
+   * Добавить новый job в файл конфигурации prometheus /etc/prometheus/prometheus.yml.  
+     Вместо {host} необходимо указать свои сервера.
+
+~~~shell
+  # prometheus.yml
+  scrape_configs:        
+    - job_name: 'node_exporter'
+      scrape_interval: 10s
+      static_configs:
+        - targets: [
+          '{host}:9100',
+          '{host}:9100'
+          ]
+ ~~~
+
 2. Установить и настроить [Node-exporter](https://github.com/prometheus/node_exporter)  
    Установить на Linux можно с помощью bash-скрипта --> 
    [install-node-exporter.sh](https://github.com/promokk/bash-scripts/blob/main/install-scripts/install-node-exporter.sh)
