@@ -4,7 +4,7 @@
 Для работы дашборда используется Prometheus, [Jmx-exporter](https://github.com/prometheus/jmx_exporter)
 и [Node-exporter](https://github.com/prometheus/node_exporter).
 
-Дашборд загружен в [Grafana Labs](https://grafana.com/grafana/dashboards/22106-jmeter-jmx-dashboard/).
+Дашборд доступен в [Grafana Labs](https://grafana.com/grafana/dashboards/22106-jmeter-jmx-dashboard/).
 
 ---
 # Оглавление
