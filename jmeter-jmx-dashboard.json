@@ -325,7 +325,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "jvm_memory_bytes_used{area=\"heap\", instance=\"$host\", job=\"$job\"} / jvm_memory_bytes_max{area=\"heap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_used_bytes{area=\"heap\", instance=\"$host\", job=\"$job\"} / jvm_memory_max_bytes{area=\"heap\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -403,7 +403,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "jvm_memory_bytes_used{area=\"nonheap\", instance=\"$host\", job=\"$job\"} / jvm_memory_bytes_max{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_used_bytes{area=\"nonheap\", instance=\"$host\", job=\"$job\"} / jvm_memory_max_bytes{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -1336,7 +1336,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_used{area=\"heap\", instance=\"$host\", job=\"$job\"} / jvm_memory_bytes_max{area=\"heap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_used_bytes{area=\"heap\", instance=\"$host\", job=\"$job\"} / jvm_memory_max_bytes{area=\"heap\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -1439,7 +1439,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_used{area=\"nonheap\", instance=\"$host\", job=\"$job\"} / jvm_memory_bytes_max{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_used_bytes{area=\"nonheap\", instance=\"$host\", job=\"$job\"} / jvm_memory_max_bytes{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -1540,7 +1540,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_used{area=\"heap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_used_bytes{area=\"heap\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -1553,7 +1553,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_committed{area=\"heap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_committed_bytes{area=\"heap\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "COMMITTED",
@@ -1566,7 +1566,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_max{area=\"heap\", instance=\"$host\"}",
+          "expr": "jvm_memory_max_bytes{area=\"heap\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "MAX",
@@ -1665,7 +1665,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_used{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_used_bytes{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -1678,7 +1678,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_committed{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_committed_bytes{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "COMMITTED",
@@ -1691,7 +1691,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_max{area=\"nonheap\", instance=\"$host\"}",
+          "expr": "jvm_memory_max_bytes{area=\"nonheap\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "MAX",
@@ -2003,7 +2003,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"G1 Eden Space\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"G1 Eden Space\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -2016,7 +2016,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"G1 Eden Space\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"G1 Eden Space\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2030,7 +2030,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"G1 Eden Space\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"G1 Eden Space\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2130,7 +2130,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"G1 Survivor Space\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"G1 Survivor Space\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -2143,7 +2143,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"G1 Survivor Space\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"G1 Survivor Space\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2157,7 +2157,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"G1 Survivor Space\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"G1 Survivor Space\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2257,7 +2257,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"G1 Old Gen\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"G1 Old Gen\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -2270,7 +2270,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"G1 Old Gen\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"G1 Old Gen\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2284,7 +2284,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"G1 Old Gen\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"G1 Old Gen\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2640,7 +2640,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"Metaspace\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"Metaspace\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -2653,7 +2653,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"Metaspace\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"Metaspace\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2667,7 +2667,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"Metaspace\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"Metaspace\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3025,7 +3025,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"CodeHeap 'non-nmethods'\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"CodeHeap 'non-nmethods'\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -3038,7 +3038,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"CodeHeap 'non-nmethods'\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"CodeHeap 'non-nmethods'\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3052,7 +3052,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"CodeHeap 'non-nmethods'\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"CodeHeap 'non-nmethods'\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3152,7 +3152,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"CodeHeap 'non-profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"CodeHeap 'non-profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -3165,7 +3165,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"CodeHeap 'non-profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"CodeHeap 'non-profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3179,7 +3179,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"CodeHeap 'non-profiled nmethods'\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"CodeHeap 'non-profiled nmethods'\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3279,7 +3279,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"CodeHeap 'profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"CodeHeap 'profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -3292,7 +3292,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"CodeHeap 'profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"CodeHeap 'profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3306,7 +3306,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"CodeHeap 'profiled nmethods'\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"CodeHeap 'profiled nmethods'\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
