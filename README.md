@@ -19,6 +19,7 @@
 * [Настройка окружения](#settings)
   * [Prometheus и Node-exporter](#prometheusNodeExporter)
   * [Jmx-exporter](#jmxExporter)
+  * [SD Server](#sdServer)
   * [Jmeter](#jmeter)
   * [Запуск Jmeter в Non-GUI mode](#runJmeter)
 
@@ -86,7 +87,7 @@ Jmx-exporter запускается как java-agent при запуске Jmet
 G1 Young Generation - младшее поколение: G1 Eden Space, G1 Survivor Space.  
 G1 Old Generation - старшее поколение: G1 Old Gen.
 * GC Count - количество сборок мусора
-  >[!WARNING]  
+  > :warning: WARNING    
   > На изображении GC Count измеряется во времени - неверно. Это исправлено, измеряется в единицах.
 * GC Time - время выполнения сборки мусора
 * G1 Eden Space - пул памяти для новых объектов
