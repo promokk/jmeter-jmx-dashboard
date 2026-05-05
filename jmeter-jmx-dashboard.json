@@ -1,60 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    },
-    {
-      "name": "VAR_PORT_NODE_EXPORTER",
-      "type": "constant",
-      "label": "port_node_exporter",
-      "value": "9100",
-      "description": ""
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "gauge",
-      "name": "Gauge",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "10.0.3"
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -74,7 +18,7 @@
   "editable": false,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": null,
+  "id": 19,
   "links": [
     {
       "asDropdown": false,
@@ -107,7 +51,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Утилизация CPU (%) процессом.",
       "fieldConfig": {
@@ -166,7 +110,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -185,7 +129,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Фактическое использование памяти (%) процессом.",
       "fieldConfig": {
@@ -244,7 +188,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "process_resident_memory_bytes{instance=\"$host\", job=\"$job\"} / process_virtual_memory_bytes{instance=\"$host\", job=\"$job\"}",
@@ -261,7 +205,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Утилизация Heap (куча) (%).",
       "fieldConfig": {
@@ -321,11 +265,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "jvm_memory_bytes_used{area=\"heap\", instance=\"$host\", job=\"$job\"} / jvm_memory_bytes_max{area=\"heap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_used_bytes{area=\"heap\", instance=\"$host\", job=\"$job\"} / jvm_memory_max_bytes{area=\"heap\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -339,7 +283,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Утилизация NonHeap (стек) (%).",
       "fieldConfig": {
@@ -399,11 +343,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "jvm_memory_bytes_used{area=\"nonheap\", instance=\"$host\", job=\"$job\"} / jvm_memory_bytes_max{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_used_bytes{area=\"nonheap\", instance=\"$host\", job=\"$job\"} / jvm_memory_max_bytes{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -417,7 +361,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Количество классов, которые в данный момент загружены в приложении.",
       "fieldConfig": {
@@ -466,7 +410,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "jvm_classes_currently_loaded{instance=\"$host\", job=\"$job\"}",
@@ -483,7 +427,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Ссылка отображает период от начала записи до выбранной точки.",
       "fieldConfig": {
@@ -590,11 +534,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "process_start_time_seconds{instance=\"$host\", job=\"$job\"} * 1000",
+          "expr": "process_start_time_seconds{script_name=\"$script_name\", process_name=\"$process_name\", job=\"$job\"} * 1000",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -627,8 +571,12 @@
               "StartTS": false,
               "Time": false,
               "Value": false,
+              "hostname": true,
               "instance": true,
-              "job": true
+              "ip": true,
+              "job": true,
+              "process_name": true,
+              "script_name": true
             },
             "indexByName": {},
             "renameByName": {}
@@ -656,7 +604,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Версия JVM.",
       "fieldConfig": {
@@ -703,11 +651,11 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "jvm_info{instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_runtime_info{instance=\"$host\", job=\"$job\"}",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -722,7 +670,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Время от начала записи до выбранной точки.",
       "fieldConfig": {
@@ -771,7 +719,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -803,7 +751,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Утилизация CPU (%) процессом.",
       "fieldConfig": {
@@ -876,7 +824,9 @@
           ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": true,
+          "sortBy": "Last *",
+          "sortDesc": false
         },
         "tooltip": {
           "mode": "multi",
@@ -887,7 +837,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "irate(process_cpu_seconds_total{instance=\"$host\", job=\"$job\"}[$__rate_interval]) / scalar(count(count(node_cpu_seconds_total{instance=\"$server:$port_node_exporter\", job=\"node_exporter\"}) by (cpu)))",
@@ -905,7 +855,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Фактическое использование памяти (%) процессом.",
       "fieldConfig": {
@@ -989,7 +939,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "process_resident_memory_bytes{instance=\"$host\", job=\"$job\"} / process_virtual_memory_bytes{instance=\"$host\", job=\"$job\"}",
@@ -1006,7 +956,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Утилизация CPU (millicore) процессом.",
       "fieldConfig": {
@@ -1089,7 +1039,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "irate(process_cpu_seconds_total{instance=\"$host\", job=\"$job\"}[$__rate_interval]) * 1000",
@@ -1103,7 +1053,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "scalar(count(count(node_cpu_seconds_total{instance=\"$server:$port_node_exporter\", job=\"node_exporter\"}) by (cpu))) * 1000",
@@ -1121,7 +1071,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "VIRTUAL_MEMORY - общий объем памяти, который может потребоваться процессу.  \nRESIDENT_MEMORY - фактическое использование памяти процессом.",
       "fieldConfig": {
@@ -1203,7 +1153,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "process_resident_memory_bytes{instance=\"$host\", job=\"$job\"}",
@@ -1216,7 +1166,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "process_virtual_memory_bytes{instance=\"$host\", job=\"$job\"}",
@@ -1247,7 +1197,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Утилизация Heap (куча) (%).",
       "fieldConfig": {
@@ -1295,8 +1245,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1333,10 +1282,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_used{area=\"heap\", instance=\"$host\", job=\"$job\"} / jvm_memory_bytes_max{area=\"heap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_used_bytes{area=\"heap\", instance=\"$host\", job=\"$job\"} / jvm_memory_max_bytes{area=\"heap\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -1350,7 +1299,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Утилизация NonHeap (стек) (%).",
       "fieldConfig": {
@@ -1398,8 +1347,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1436,10 +1384,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_used{area=\"nonheap\", instance=\"$host\", job=\"$job\"} / jvm_memory_bytes_max{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_used_bytes{area=\"nonheap\", instance=\"$host\", job=\"$job\"} / jvm_memory_max_bytes{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -1453,7 +1401,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "USED - используемая память.  \nCOMMITTED - доступная память.  \nMAX - максимальный размер памяти.",
       "fieldConfig": {
@@ -1499,8 +1447,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1537,10 +1484,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_used{area=\"heap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_used_bytes{area=\"heap\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -1550,10 +1497,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_committed{area=\"heap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_committed_bytes{area=\"heap\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "COMMITTED",
@@ -1563,10 +1510,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_max{area=\"heap\", instance=\"$host\"}",
+          "expr": "jvm_memory_max_bytes{area=\"heap\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "MAX",
@@ -1580,7 +1527,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "USED - используемая память.  \nCOMMITTED - доступная память.  \nMAX - максимальный размер памяти.",
       "fieldConfig": {
@@ -1626,8 +1573,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1662,10 +1608,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_used{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_used_bytes{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -1675,10 +1621,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_committed{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_committed_bytes{area=\"nonheap\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "COMMITTED",
@@ -1688,10 +1634,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_max{area=\"nonheap\", instance=\"$host\"}",
+          "expr": "jvm_memory_max_bytes{area=\"nonheap\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "legendFormat": "MAX",
@@ -1718,7 +1664,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Количество сборок мусора (GC).  \nG1 Young Generation - младшее поколение (малая сборка / minor GC).  \nG1 Old Generation - старшее поколение (полная сборка / full GC).",
       "fieldConfig": {
@@ -1764,12 +1710,11 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
-          "unit": "s"
+          "unit": "none"
         },
         "overrides": []
       },
@@ -1800,7 +1745,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "increase(jvm_gc_collection_seconds_count{instance=\"$host\", job=\"$job\"}[$__rate_interval])",
@@ -1818,7 +1763,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Время выполнения сборки мусора (GC).  \nG1 Young Generation - младшее поколение (малая сборка / minor GC).  \nG1 Old Generation - старшее поколение (полная сборка / full GC).",
       "fieldConfig": {
@@ -1864,8 +1809,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1900,7 +1844,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "increase(jvm_gc_collection_seconds_sum{instance=\"$host\", job=\"$job\"}[$__rate_interval])",
@@ -1918,7 +1862,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Пул памяти для новых объектов (Eden Space).  \nОтносится к Young Generation - младшее поколение.",
       "fieldConfig": {
@@ -1964,8 +1908,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2000,10 +1943,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"G1 Eden Space\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"G1 Eden Space\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -2013,10 +1956,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"G1 Eden Space\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"G1 Eden Space\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2027,10 +1970,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"G1 Eden Space\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"G1 Eden Space\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2045,7 +1988,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Пул памяти для выживших объектов (Survivor Space).  \nОтносится к Young Generation - младшее поколение.",
       "fieldConfig": {
@@ -2091,8 +2034,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2127,10 +2069,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"G1 Survivor Space\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"G1 Survivor Space\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -2140,10 +2082,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"G1 Survivor Space\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"G1 Survivor Space\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2154,10 +2096,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"G1 Survivor Space\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"G1 Survivor Space\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2172,7 +2114,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Пул памяти для долгоживущих объектов (Old Gen).  \nОтносится к Old Generation - старшее поколение.",
       "fieldConfig": {
@@ -2218,8 +2160,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2254,10 +2195,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"G1 Old Gen\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"G1 Old Gen\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -2267,10 +2208,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"G1 Old Gen\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"G1 Old Gen\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2281,10 +2222,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"G1 Old Gen\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"G1 Old Gen\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2312,7 +2253,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "CURRENT - пользовательские потоки, которые используются для задач переднего плана и ввода-вывода в приложении. JVM ждёт завершения их выполнения.  \nDAEMON - потоки с низким приоритетом, которые работают в фоновом режиме и выполняют задачи, например, сбор мусора, или предоставляют услуги пользовательским потокам.  \nКогда все пользовательские потоки завершают выполнение, JVM автоматически завершает демонические потоки, даже если они ещё выполняются.  \nDEADLOCKED - потоки, которые долго ждут друг друга и не могут сделать дальнейший прогресс.",
       "fieldConfig": {
@@ -2358,8 +2299,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2396,7 +2336,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "jvm_threads_current{instance=\"$host\", job=\"$job\"}",
@@ -2409,7 +2349,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "jvm_threads_daemon{instance=\"$host\", job=\"$job\"}",
@@ -2423,7 +2363,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "jvm_threads_deadlocked{instance=\"$host\"}",
@@ -2441,7 +2381,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "NEW - создан, но ещё не запущен.  \nRUNNABLE - активный поток, либо готов к выполнению и ждёт процессорного времени.  \nBLOCKED - ждёт захвата блокировки монитора, которую держит другой поток.  \nWAITING - ждёт, пока другой поток выполнит определённое действие.  \nTIMED WAITING - ждёт определённое количество времени, пока другой поток выполнит определённое действие.\nTERMINATED - завершил выполнение или был прерван из-за исключения или ошибки.  \nUNKNOWN - состояние потока неизвестно.  \n\nWAITING - состояние, в котором поток ждёт, пока другой поток выполнит конкретное действие. Например, если вызвать Object.wait() на объекте, то поток будет ждать, пока другой поток вызовет Object.notify() или Object.notifyAll() на этом объекте.  \nTIMED WAITING  - состояние, в котором поток ждёт, пока другой поток выполнит действие в течение определённого времени. Например, если вызвать Thread.sleep() или Object.wait(timeout). В этом состоянии поток будет находиться до тех пор, пока не истечёт указанный срок или другой поток не уведомит его.",
       "fieldConfig": {
@@ -2487,8 +2427,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2525,7 +2464,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "jvm_threads_state{instance=\"$host\", job=\"$job\"}",
@@ -2555,7 +2494,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Пул памяти для хранения метаданных классов.",
       "fieldConfig": {
@@ -2601,8 +2540,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2637,10 +2575,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"Metaspace\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"Metaspace\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -2650,10 +2588,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"Metaspace\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"Metaspace\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2664,10 +2602,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"Metaspace\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"Metaspace\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -2682,7 +2620,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Пул памяти из которого можно выполнить прямое чтение.  \nИспользуется для операций ввода-вывода.  \nUSED -  используемая память буферного пула.  \nCAPACITY - общий объем данного буферного пула в байтах.\nused_buffers - используемые буферы из данного пула буферов JVM. Это целое число.",
       "fieldConfig": {
@@ -2728,8 +2666,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2766,7 +2703,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "jvm_buffer_pool_used_bytes{pool=\"direct\", instance=\"$host\", job=\"$job\"}",
@@ -2779,7 +2716,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "jvm_buffer_pool_capacity_bytes{pool=\"direct\", instance=\"$host\", job=\"$job\"}",
@@ -2793,7 +2730,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "jvm_buffer_pool_used_buffers{pool=\"direct\", instance=\"$host\"}",
@@ -2811,7 +2748,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Пул памяти для FileChannel-инстанций.  \nПозволяет загрузить часть файла прямо в память, чтобы позже к ней можно было обратиться. Это даёт значительный прирост производительности, если нужно много раз читать содержимое файла. Последующие чтения будут использовать содержимое файла из памяти, а не загружать данные с диска каждый раз, когда они нужны.  \nUSED -  используемая память буферного пула.  \nCAPACITY - общий объем данного буферного пула в байтах.\nused_buffers - используемые буферы из данного пула буферов JVM. Это целое число.",
       "fieldConfig": {
@@ -2857,8 +2794,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2895,7 +2831,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "jvm_buffer_pool_used_bytes{pool=\"mapped\", instance=\"$host\", job=\"$job\"}",
@@ -2908,7 +2844,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "jvm_buffer_pool_capacity_bytes{pool=\"mapped\", instance=\"$host\", job=\"$job\"}",
@@ -2922,7 +2858,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
           "expr": "jvm_buffer_pool_used_buffers{pool=\"mapped\", instance=\"$host\"}",
@@ -2940,7 +2876,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Пул памяти, содержащий буферы компилятора и интерпретатор байт-кода.  \nИспользуется для работы JIT (just-in-time compilation).",
       "fieldConfig": {
@@ -2986,8 +2922,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -3022,10 +2957,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"CodeHeap 'non-nmethods'\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"CodeHeap 'non-nmethods'\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -3035,10 +2970,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"CodeHeap 'non-nmethods'\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"CodeHeap 'non-nmethods'\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3049,10 +2984,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"CodeHeap 'non-nmethods'\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"CodeHeap 'non-nmethods'\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3067,7 +3002,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Пул памяти содержит полностью оптимизированные методы, которые живут долго.",
       "fieldConfig": {
@@ -3113,8 +3048,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -3149,10 +3083,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"CodeHeap 'non-profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"CodeHeap 'non-profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -3162,10 +3096,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"CodeHeap 'non-profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"CodeHeap 'non-profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3176,10 +3110,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"CodeHeap 'non-profiled nmethods'\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"CodeHeap 'non-profiled nmethods'\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3194,7 +3128,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "${data_source}"
       },
       "description": "Пул памяти содержит слегка оптимизированные методы, которые могут не понадобиться ещё раз.",
       "fieldConfig": {
@@ -3240,8 +3174,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -3276,10 +3209,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{pool=\"CodeHeap 'profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_used_bytes{pool=\"CodeHeap 'profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
           "instant": false,
           "interval": "",
           "legendFormat": "USED",
@@ -3289,10 +3222,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_committed{pool=\"CodeHeap 'profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
+          "expr": "jvm_memory_pool_committed_bytes{pool=\"CodeHeap 'profiled nmethods'\", instance=\"$host\", job=\"$job\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3303,10 +3236,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${data_source}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{pool=\"CodeHeap 'profiled nmethods'\", instance=\"$host\"}",
+          "expr": "jvm_memory_pool_max_bytes{pool=\"CodeHeap 'profiled nmethods'\", instance=\"$host\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -3319,7 +3252,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": "30s",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -3337,16 +3270,22 @@
         "name": "data_source",
         "options": [],
         "query": "prometheus",
+        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
       },
       {
-        "current": {},
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${data_source}"
         },
         "definition": "label_values(jmx_exporter_build_info,job)",
         "hide": 2,
@@ -3365,19 +3304,78 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${data_source}"
         },
-        "definition": "label_values(jmx_exporter_build_info{job=\"$job\"},instance)",
+        "definition": "label_values(script_name)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "script_name",
+        "options": [],
+        "query": {
+          "query": "label_values(script_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${data_source}"
+        },
+        "definition": "label_values(jmx_exporter_build_info{job=\"$job\",script_name=\"$script_name\"},process_name)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "process_name",
+        "options": [],
+        "query": {
+          "query": "label_values(jmx_exporter_build_info{job=\"$job\",script_name=\"$script_name\"},process_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${data_source}"
+        },
+        "definition": "label_values(jmx_exporter_build_info{job=\"$job\",script_name=\"$script_name\",process_name=\"$process_name\"},instance)",
         "hide": 0,
         "includeAll": false,
         "multi": false,
         "name": "server",
         "options": [],
         "query": {
-          "query": "label_values(jmx_exporter_build_info{job=\"$job\"},instance)",
+          "query": "label_values(jmx_exporter_build_info{job=\"$job\",script_name=\"$script_name\",process_name=\"$process_name\"},instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
@@ -3387,32 +3385,41 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${data_source}"
         },
-        "definition": "label_values(jmx_exporter_build_info{job=\"$job\"},instance)",
-        "hide": 0,
+        "definition": "label_values(jmx_exporter_build_info{job=\"$job\",script_name=\"$script_name\",process_name=\"$process_name\"},instance)",
+        "hide": 2,
         "includeAll": false,
         "multi": false,
         "name": "port",
         "options": [],
         "query": {
-          "query": "label_values(jmx_exporter_build_info{job=\"$job\"},instance)",
+          "query": "label_values(jmx_exporter_build_info{job=\"$job\",script_name=\"$script_name\",process_name=\"$process_name\"},instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
         "regex": "/$server:(.*)/",
         "skipUrlSync": false,
-        "sort": 1,
+        "sort": 0,
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": ":",
+          "value": ":"
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "${data_source}"
         },
         "definition": "query_result(\"$server:$port\")",
         "hide": 2,
@@ -3434,21 +3441,9 @@
         "description": "Port node-exporter",
         "hide": 2,
         "name": "port_node_exporter",
-        "query": "${VAR_PORT_NODE_EXPORTER}",
+        "query": "9100",
         "skipUrlSync": false,
-        "type": "constant",
-        "current": {
-          "value": "${VAR_PORT_NODE_EXPORTER}",
-          "text": "${VAR_PORT_NODE_EXPORTER}",
-          "selected": false
-        },
-        "options": [
-          {
-            "value": "${VAR_PORT_NODE_EXPORTER}",
-            "text": "${VAR_PORT_NODE_EXPORTER}",
-            "selected": false
-          }
-        ]
+        "type": "constant"
       }
     ]
   },
@@ -3460,6 +3455,6 @@
   "timezone": "",
   "title": "jmeter-jmx-dashboard",
   "uid": "ac728010-fb34-4fd3-ae41-3d57a1f94ec9",
-  "version": 155,
+  "version": 172,
   "weekStart": ""
 }

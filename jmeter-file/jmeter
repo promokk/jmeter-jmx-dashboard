@@ -198,8 +198,41 @@ fi
 
 # Port jmx_prometheus_javaagent
 JMX_EXPORTER_PORT=$1
+# Host:Port sd_server
+SD_ENDPOINT=$2
 # Jmeter path
 JMETER_PATH="/opt/jmeter/bin"
-shift
+shift 2
 
-"$JAVA_HOME/bin/java" $ARGS $JVM_ARGS $JMETER_OPTS -javaagent:$JMETER_PATH/jmx_prometheus_javaagent-0.20.0.jar=$JMX_EXPORTER_PORT:$JMETER_PATH/config.yaml -jar "$PRGDIR/ApacheJMeter.jar" "$@"
+# === HTTP SD SERVER REGISTRATION ===
+# Defining the host name
+CLIENT_HOSTNAME=$(hostname -f 2>/dev/null || hostname)
+# Process name (jmeter / jmeter-server
+PROCESS_NAME="${PROCESS_NAME:-jmeter}"
+
+# Extract script name (works with -t script.jmx and -t=script.jmx)
+SCRIPT_NAME="unknown"
+next_is_name=""
+for arg in "$@"; do
+  case "$arg" in
+    -t) next_is_name="1"; continue ;;
+    -t=*) SCRIPT_NAME=$(basename "${arg#-t=}" .jmx); break ;;
+  esac
+  if [ "$next_is_name" = "1" ]; then
+    SCRIPT_NAME=$(basename "$arg" .jmx)
+    break
+  fi
+done
+
+# Target registration
+curl -sf -m 3 -X POST -H "Content-Type: application/json" \
+  -d "{\"action\":\"register\",\"port\":\"${JMX_EXPORTER_PORT}\",\"script\":\"${SCRIPT_NAME}\",\"hostname\":\"${CLIENT_HOSTNAME}\",\"process_name\":\"${PROCESS_NAME}\"}" \
+  "$SD_ENDPOINT" >/dev/null 2>&1 || echo "!!! Failed to register target with SD server !!!"
+
+# Automatic removal of the target at any completion
+trap 'curl -sf -m 3 -X POST -H "Content-Type: application/json" \
+  -d "{\"action\":\"unregister\",\"port\":\"${JMX_EXPORTER_PORT}\"}" \
+  "$SD_ENDPOINT" >/dev/null 2>&1' EXIT INT TERM
+# === END HTTP SD SERVER ===
+
+"$JAVA_HOME/bin/java" $ARGS $JVM_ARGS $JMETER_OPTS -javaagent:$JMETER_PATH/jmx_prometheus_javaagent-1.5.0.jar=$JMX_EXPORTER_PORT:$JMETER_PATH/config.yaml -jar "$PRGDIR/ApacheJMeter.jar" "$@"

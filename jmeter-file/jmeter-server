@@ -31,6 +31,11 @@ DIRNAME=`dirname $0`
 
 # Port jmx_prometheus_javaagent
 JMX_EXPORTER_PORT=$1
-shift
+# Host:Port sd_server
+SD_ENDPOINT=$2
+shift 2
 
-${DIRNAME}/jmeter02 ${JMX_EXPORTER_PORT} ${RMI_HOST_DEF} -Dserver_port=${SERVER_PORT:-1099} -s -j jmeter-server.log "$@"
+# Process name (jmeter / jmeter-server)
+export PROCESS_NAME="${PROCESS_NAME:-jmeter-server}"
+
+${DIRNAME}/jmeter-jmx ${JMX_EXPORTER_PORT} ${SD_ENDPOINT} ${RMI_HOST_DEF} -Dserver_port=${SERVER_PORT:-1099} -s -j jmeter-server.log "$@"
