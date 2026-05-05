@@ -170,7 +170,8 @@ G1 Old Generation - старшее поколение: G1 Old Gen.
 Jmx-exporter запускается как java-agent при запуске Jmeter. Один java-agent собирает метрики с одного процесса Jmeter.
 При запуске распределенного теста на master-сервере запускается два процесса Jmeter (jmeter и jmeter-server).
 
-1. Добавить новый job в конфигурационный файл prometheus /etc/prometheus/prometheus.yml.
+1. Добавить новый job в конфигурационный файл prometheus /etc/prometheus/prometheus.yml.  
+   Используется http_sd_configs, в url указывается адрес sd-server.
 
 ~~~shell
 # prometheus.yml
@@ -222,7 +223,7 @@ SD Server необходимо запустить на сервере  prometheu
 1. Фоновый процесс
 
 ~~~shell
-nohup python3 ./sd_server.py > /dev/null 2>&1 &
+nohup python3 sd_server.py > /dev/null 2>&1 &
 ~~~
 
 2. Служба (сервис)  
