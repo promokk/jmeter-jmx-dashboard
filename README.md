@@ -200,6 +200,7 @@ rules:
 HTTP SD Server (Service Discovery) реализован с помощью python → [sd_server.py](https://github.com/promokk/jmeter-jmx-dashboard/blob/main/sd_server/sd_server.py)  
 Приложение не хранит метрики. Оно выполняет только одну задачу - обнаружение целей. 
 Цели сохраняются в оперативную память приложения.  
+Порт по умолчанию: 8089.
 
 Взаимодействие с sd-server осуществляется через rest-запросы:
 * GET / - получить список целей
